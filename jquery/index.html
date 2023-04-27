@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2 id="titulo">Hola, Voy a cambiar de valor</h2>
+    <button onclick="apretame()">
+        apretame
+    </button>
+
+    <hr>
+
+    <input type="text" id="nombre" placeholder="ingrese nombre" onkeyup="mostarTexto()">
+    <p id="r_nombre"></p>
+
+    <hr>
+
+    <input type="text" id="campo1" placeholder="ingrese algo">
+    <input type="text" id="campo2" placeholder="ingrese algo">
+    <button onclick="combinarTexto()">
+        Combinar
+    </button>
+    
+    <p id="r_combinar"></p>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script>
+        function apretame(){
+            // document.getElementById('titulo').innerHTML = 'texto a cambiar'
+            $("#titulo").html("cambie de valor")
+        }
+
+        function mostarTexto(){
+            // let nombre = document.getElementById('nombre').value;
+            let nombre = $("#nombre").val();
+            
+            // document.getElementById('r_nombre').innerHTML = nombre;
+            $("#r_nombre").html(nombre);
+
+        }
+
+        function combinarTexto(){
+            // let campo1 = document.getElementById('campo1').innerHTML = nombre;
+            let campo1 = $("#campo1").val();
+            // let campo2 = document.getElementById('campo2').innerHTML = nombre;
+            let campo2 = $("#campo2").val();
+
+            
+            // let resultado = `${campo1} ${campo2}`;
+            let resultado = campo1 + " " + campo2;
+
+            // document.getElementById('r_combinar').innerHTML = resultado;
+            $("#r_combinar").html(resultado);
+        }
+
+
+
+    </script>
+
+</body>
+</html>
