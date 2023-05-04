@@ -1,8 +1,8 @@
 function buscarPokemon(){
-    fetch('https://pokeapi.co/api/v2/pokemon/ditto')
+    fetch('https://pokeapi.co/api/v2/pokemon/pikachu')
         .then(respuesta => respuesta.json())
         .then(data => {
-            // console.log(data)
+            console.log(data)
             
             let nombre_pokemon = data.name;
             let habilidades = data.abilities;
