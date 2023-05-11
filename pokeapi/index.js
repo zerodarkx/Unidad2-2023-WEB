@@ -3,6 +3,7 @@ butonBuscar.addEventListener('click', buscarPokemon);
 
 let btn_siguiente = document.getElementById('btn_siguiente');
 let btn_anterior = document.getElementById('btn_anterior');
+let btn_todo = document.getElementById('btn_todo');
 let cargando = document.getElementById('cargando');
 
 let miModal = new bootstrap.Modal(document.getElementById('miModal'))
@@ -15,19 +16,31 @@ btn_anterior.addEventListener('click', () => {
     listarPokemones(urlAnterior)
 })
 
-let urlInicio = `https://pokeapi.co/api/v2/pokemon/?limit=25&offset=0`;
+let urlInicio = `https://pokeapi.co/api/v2/pokemon/?limit=25&offset=1260`;
 let urlSiguiente = '';
 let urlAnterior = '';
 
+btn_todo.addEventListener('click', () => {
+    btn_siguiente.classList.remove('d-none');
+    btn_todo.classList.add('d-none');
+    listarPokemones(urlInicio)
+})
+
+let error_mensaje = document.getElementById('error_buscar');
 
 function buscarPokemon() {
     let nombre_pokemon = document.getElementById('nombrePokemon').value;
+    btn_todo.classList.remove('d-none');
+    btn_siguiente.classList.add('d-none');
+    btn_anterior.classList.add('d-none');
+
     if (nombre_pokemon !== '') {
+        error_mensaje.classList.add('d-none');
         console.log(nombre_pokemon);
 
         let url = `https://pokeapi.co/api/v2/pokemon/${nombre_pokemon}`;
 
-        let cuerpo = '';
+        let html = '';
 
 
         fetch(url)
@@ -41,7 +54,7 @@ function buscarPokemon() {
                     habilidades += `<li>${data.abilities[i].ability.name}</li>`;
 
                 }
-                cuerpo += `
+                html += `
                 <div class="col-md-3">
                     <div class="card">
                         <img src="${data.sprites.front_default}" class="card-img-top" alt="...">
@@ -51,18 +64,30 @@ function buscarPokemon() {
                             <ul>
                                 ${habilidades}
                             </ul>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button class="btn btn-primary" onclick="abrirModal('${url}')">Detalle</button>
                         </div>
                     </div>
                 </div>
                 `;
 
-                document.getElementById('cuerpoDetalle').innerHTML = cuerpo;
+                document.getElementById('cuerpoDetalle').innerHTML = html;
 
             })
-            .catch(err => console.error("err"))
+            .catch(err => {
+                
+                console.error("tuve un error")
+
+                html += `
+                    <div class="alert alert-danger mt-1" role="alert">
+                        El nombre del Pokemon ingresado no es valido
+                    </div>
+                `;
+                
+                document.getElementById('cuerpoDetalle').innerHTML = html;
+            })
     } else {
-        console.error('Favor ingresar un texto')
+        error_mensaje.classList.remove('d-none');
+        console.error('Favor ingresar un texto');
     }
 
 
